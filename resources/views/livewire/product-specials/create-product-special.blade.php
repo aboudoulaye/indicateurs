@@ -35,7 +35,7 @@
             <legend class="fieldset-legend text-lg font-semibold">LIER PRODUITS PROGRAMMES SPECIAUX</legend>
             <label class="label mt-2">Nom Programme</label>
             <select id="programme" wire:model="special_id" class=" w-full" autocomplete="off">
-                <option value="">choisir programme ----</option>
+                <option value="">choisir programme</option>
                 @foreach ($this->specials as $special)
                     <option value="{{ $special->id }}">{{ $special->name }}</option>
                 @endforeach
@@ -47,7 +47,7 @@
             <select id="produit" class="w-full" autocomplete="off" wire:model="product_id">
                 <option value="">choisir produit</option>
                 @foreach ($this->produits as $produit)
-                    <option value="{{ $produit->id }}">{{ $produit->name }}</option>
+                    <option value="{{ $produit->id }}">{{$produit->code}} - {{ $produit->name }}</option>
                 @endforeach
             </select>
             @error('product_id')

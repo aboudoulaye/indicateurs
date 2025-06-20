@@ -17,6 +17,7 @@ use App\Livewire\Products\CreateProduct;
 use App\Livewire\CenterTypes\CreateType;
 use App\Livewire\CenterTypes\TypeList;
 use App\Livewire\ProductPrograms\CreateProductProgram;
+use App\Livewire\ProductPrograms\ProductProgramList;
 use App\Livewire\Products\ProductList;
 use App\Livewire\ProductSpecials\CreateProductSpecial;
 use App\Livewire\Programs\ProgramList;
@@ -51,6 +52,7 @@ Route::get('/program_center/create', CreateCenterProgram::class)->name('create.p
 Route::get('/program_center/list', CenterProgramList::class)->name('list.program_center');
 
 Route::get('/product_program',CreateProductProgram::class)->name('create.product_program');
+Route::get('product_program/list',ProductProgramList::class)->name('list.product_program');
 
 Route::get('/products/create', CreateProduct::class)->name('create.product');
 Route::get('/products/list', ProductList::class)->name('list.product');
