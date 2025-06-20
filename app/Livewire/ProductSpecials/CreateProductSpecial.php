@@ -62,7 +62,7 @@ class CreateProductSpecial extends Component
     #[Computed()]
     public function produits()
     {
-        return Product::select('id', 'name')->get();
+        return Product::select('id', 'name','code')->get();
     }
 
     #[Layout('components.layouts.app')]

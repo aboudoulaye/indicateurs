@@ -14,8 +14,6 @@ class RecordsImport implements ToModel
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    private $current = 0;
-
     
     public function model(array $row)
     {
@@ -27,7 +25,7 @@ class RecordsImport implements ToModel
         $periodId = $lastPeriod->id;
 
         // Récupérer le centre par son nom (ou autre champ unique)
-        $center = Center::where('name', $row['0'])->first();
+        $center = Center::where('code', $row['0'])->first();
 
         if (!$center) {
             // Centre non trouvé, on ignore ou on peut loguer l’erreur
@@ -42,7 +40,7 @@ class RecordsImport implements ToModel
                         ->exists();
 
         if ($exists) {
-            return null; // Ignorer si déjà existant
+            return null; 
         }
 
         return new Record([

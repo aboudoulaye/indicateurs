@@ -20,23 +20,13 @@ class ProgramsImport implements ToModel
             return null;
         }
 
-        $programCode = trim($row[0]);
-        $programName = trim($row[1]);
-        // Trim the region name and check for empty values
-
-        if (empty($programName) || empty($programCode)) {
-            return null; // Ignore les lignes incomplètes
-        }
-
-        $existingProgram = Program::whereRaw('LOWER(name) = ?', [strtolower($programName)])
-            ->orWhere('code', $programCode)
-            ->first();
+        $existingProgram = Program::Where('code', $row[0])->first();
 
         // Create region only if it doesn't exist
         if (!$existingProgram) {
             return new Program([
-                'code' => $programCode,
-                'name' => $programName,
+                'code' => $row[0],
+                'name' => $row[1],
             ]);
         }
 

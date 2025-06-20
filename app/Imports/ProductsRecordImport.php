@@ -15,29 +15,6 @@ class ProductsRecordImport implements ToModel
     private $normalizedCenters = [];
     private $normalizedProducts = [];
 
-    public function __construct()
-    {
-        $this->normalizedCenters = Center::all()->mapWithKeys(function ($center) {
-            return [$this->normalize($center->name) => $center];
-        });
-
-        $this->normalizedProducts = Product::all()->mapWithKeys(function ($product) {
-            return [$this->normalize($product->name) => $product];
-        });
-    }
-
-    private function normalize($string)
-    {
-        $string = preg_replace('/[\x00-\x1F\x7F]/u', '', $string);
-        $string = mb_strtolower($string, 'UTF-8');
-        $converted = @iconv('UTF-8', 'ASCII//TRANSLIT', $string);
-        if ($converted === false) {
-            $converted = $string;
-        }
-        $converted = preg_replace('/[^a-z0-9]/', '', $converted);
-        return $converted;
-    }
-
     public function model(array $row)
     {
         $period = Period::latest('period')->first();
@@ -46,17 +23,13 @@ class ProductsRecordImport implements ToModel
         }
 
         // 1. Centre
-        $centerName = trim($row[0]);
-        $normalizedCenter = $this->normalize($centerName);
-        $center = $this->normalizedCenters[$normalizedCenter] ?? null;
+        $center = Center::where('code',$row[5])->first();
         if (!$center) {
             return null;
         }
 
         // 2. Produit
-        $productName = trim($row[1]);
-        $normalizedProduct = $this->normalize($productName);
-        $product = $this->normalizedProducts[$normalizedProduct] ?? null;
+        $product = Product::where('code',$row[9])->first();
         if (!$product) {
             return null;
         }

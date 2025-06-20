@@ -31,10 +31,9 @@ class CentersImport implements ToModel
             return null;
         }
 
-        // Recherche du center par nom
-        $center = Center::where('name', $row[1])->first();
+        $center = Center::where('code', $row[0])->first();
         if ($center) {
-            // Center déjà existant, on ne fait rien
+            
             return null;
         }
 

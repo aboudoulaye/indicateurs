@@ -24,8 +24,8 @@ class ProgramsCenterImport implements ToModel
         }
 
         // Find program and établissement by name
-        $program = Program::where('name', trim($row[0]))->first();
-        $center = Center::where('name', trim($row[1]))->first();
+        $program = Program::where('code', trim($row[0]))->first();
+        $center = Center::where('code', trim($row[2]))->first();
 
         // Check if relation already exists
         $existingRelation = CenterProgram::where([
